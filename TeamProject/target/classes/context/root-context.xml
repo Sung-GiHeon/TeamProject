@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:mybatis-spring="http://mybatis.org/schema/mybatis-spring"
+	xmlns:task="http://www.springframework.org/schema/task"
+	xsi:schemaLocation="http://mybatis.org/schema/mybatis-spring http://mybatis.org/schema/mybatis-spring-1.2.xsd
+		http://www.springframework.org/schema/task http://www.springframework.org/schema/task/spring-task-4.3.xsd
+		http://www.springframework.org/schema/beans https://www.springframework.org/schema/beans/spring-beans.xsd
+		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-4.3.xsd">
+	
+	<!-- Root Context: defines shared resources visible to all other web components -->
+	
+	<bean id="hikariConfig" class="com.zaxxer.hikari.HikariConfig">
+		<property name="driverClassName" value="com.mysql.jdbc.Driver"></property>
+		<property name="jdbcUrl" value="jdbc:mysql://localhost:3306/crime?useSSL=false"></property>
+		<property name="username" value="root"></property>
+		<property name="password" value="12345"></property>
+		<property name="maximumPoolSize" value="200"/>
+		<property name="minimumIdle" value="20"/>
+		<property name="connectionTimeout" value="300000"/>
+		<property name="idleTimeout" value="200000"/>
+	</bean>
+	
+	<!-- 데이터베이스의 connection을 미리 생성 한뒤 호출시 바로 사용자들이 사용할 수 있게끔 -->
+	<bean id="ds" class="com.zaxxer.hikari.HikariDataSource">
+		<constructor-arg ref="hikariConfig"/>
+	</bean>
+	
+	<!-- mybatis와 mysql을 연결해주는 source -->
+	<bean id="factory" class="org.mybatis.spring.SqlSessionFactoryBean">
+		<property name="dataSource" ref="ds"/>
+	</bean>
+	<!-- 쿼리,롤백,커밋에 사용되는 싱글톤객체 -->
+	<bean id="sqlSession" class="org.mybatis.spring.SqlSessionTemplate">
+		<constructor-arg ref="factory"/>
+	</bean>
+	
+	<mybatis-spring:scan base-package="net.koreate.testt.*.dao net.koreate.*.dao"/>
+	
+	<task:annotation-driven/>
+	<context:component-scan base-package="net.koreate.testt.common.task"></context:component-scan>
+</beans>
