@@ -25,6 +25,8 @@
 <script src="//ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
 <script src="//code.jquery.com/ui/1.8.18/jquery-ui.min.js"></script>
 <script>
+
+/* datapicker 셋팅 */
 $(function() {
 	$('input[id=date_start]').attr("readonly","true");
 	$('input[id=date_end]').attr("readonly","true");
@@ -83,12 +85,16 @@ $(function() {
 </script>
 </head>
 
-
-
 <body class="is-preload">
+
+<!-- Side menu -->
 <div id="page-wrapper">
-<jsp:include page="../header2.jsp"/>
+<jsp:include page="../Sub_header.jsp"/>
+
+
 <article id="main">	
+
+<!-- HOME 버튼 -->
 <header>
 	<div style="margin:0;">
 	<h2>Support Modify</h2>
@@ -96,6 +102,8 @@ $(function() {
 	<h1><a href="${pageContext.request.contextPath}">HOME</a></h1>
 	</div>
 </header>
+
+<!-- 게시판 수정   -->
 <section class="wrapper style5">
 <div class="inner" style="height:100%;">
 	<!-- register 영역 -->	
@@ -109,7 +117,6 @@ $(function() {
 		<f:formatDate var="startfmt"  value="${board.regdate}" pattern="yyyy-MM-dd HH:mm:ss" /> 
 		<input type="hidden" name="startdate" value="${startfmt}" />
 		
-		<%-- <input type="hidden" name="uno" value="${userInfo.uno}"/> --%>
 		<div class="table-wrapper" style="max-height:2000px; width:70%;margin:0 auto;" align=center>   
 		<table>	
 			<tr>
@@ -204,10 +211,15 @@ $(function() {
 <script>
 	var contextPath = '${pageContext.request.contextPath}';
 </script>
+
+<!-- upload시 호출 함수 script -->
 <script src="${pageContext.request.contextPath}/resources/js/upload.js"></script>
+
+
 <script>
 	var supportNum = ${board.supportNum};
 	
+	/* 지역으로 등록 된 내용 DB에서 호출 후 비교 */
 	$(function iu(){
 		var option = $("option");
 
@@ -218,7 +230,7 @@ $(function() {
 		};
 	});
 	
-	
+	/* 첨부파일 존재시 가져오기  */
 	$.getJSON("getAttach/"+supportNum,function(data){
 		// 첨부파일 목록 - data
 		var height = $("#table_height").height();
@@ -240,7 +252,7 @@ $(function() {
 		}
 	});
 	
-	
+	// 파일 업로드 
 	$(".fileUpload").on("change",function(event) {
 		// upload
 		var files = this.files;
@@ -255,8 +267,9 @@ $(function() {
 			formData.append("file", files[i]);
 			
 		}
-
-	$.ajax({
+		
+		// 업로드시 미리보기 생성
+		$.ajax({
 			type : "POST",
 			data : formData,
 			dataType : "json",
@@ -293,6 +306,7 @@ $(function() {
 	
 	var arr = [];
 	
+	/* 미리보기 이미지 삭제버튼  */
 	$(".uploadList").on("click",".delBtn",function(event){
 		event.preventDefault();
 		var fileLink = $(this).attr("href");
@@ -300,6 +314,7 @@ $(function() {
 		$(this).closest("li").remove();
 	});
 	
+	/* 수정완료 버튼  */
 	$("#saveBtn").click(function(){
 		var str  = "";
 		// 빈칸 예외처리

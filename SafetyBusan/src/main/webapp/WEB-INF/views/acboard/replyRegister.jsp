@@ -3,7 +3,6 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <!DOCTYPE html>
-<jsp:include page="../header.jsp"></jsp:include>
 <html>
 <head>
 <meta charset="UTF-8">
@@ -14,7 +13,7 @@
 </head>
 <body  class="is-preload">
 <div id="page-wrapper">
-<jsp:include page="../header2.jsp"/>
+<jsp:include page="../Sub_header.jsp"/>
 <article id="main">   
 <header>
    <div style="margin:0 3em 0 0">

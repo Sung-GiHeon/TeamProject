@@ -2,7 +2,6 @@
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="f" uri="http://java.sun.com/jsp/jstl/fmt"%>
-<jsp:include page="../header.jsp"></jsp:include>
 <!DOCTYPE html>
 <html>
 <head>
@@ -36,7 +35,7 @@
 </head>
 <body class="is-preload">
 <div id="page-wrapper">
-<jsp:include page="../header2.jsp"/>
+<jsp:include page="../Sub_header.jsp"/>
 <article id="main">
 <header>
    <div>

@@ -81,6 +81,7 @@
             
       </ul>
    </div>
+     <!-- 페이징처리  -->
    <div class="inner" style="height:100px;margin-top:20px;" align="center">
       <ul id="pagination" >
       
@@ -88,7 +89,6 @@
    </div>
 </div>
 
-<!-- 페이징 블럭 -->
 
 
 
@@ -98,17 +98,20 @@
    var commentPage = 1;
    getListPage(commentPage);
 
-   
+   // 댓글 수정 클릭시 동적 이벤트 발생
    $("#comments").on("click",".commentLi #commentModBtn",function(){
       // this는 동적 할당 버튼을 가르킴 그 부모는 commentLi
       var commentWrap = $(this).parent();
       var re_guardNum = commentWrap.attr("data-re_guardNum");
       var writer = "${userInfo.name}";
       var text = commentWrap.attr("data-text");
+      
+      // text에 들어가는 태그요소 변경 -> 사용자 화면에서 \n로 바꿈
       text = text.replace(/<br\>/ig, "\n");
       text = text.replace(/<br\/>/ig, "\n");
       text = text.replace(/<(\/)?([a-zA-Z]*)(\s[a-zA-Z]*=[^>]*)?(\s)*(\/)?>/ig, "");
       
+      // 해당 선택자에 속한 태그를 textarea로 변경
       $(".con"+re_guardNum).contents().unwrap().wrap( "<textarea class='con"+re_guardNum+"' style='max-height:700px;resize:none;width:100%;'></textarea>" );
       $(".btnNum"+re_guardNum).text("저장");
       $(".btnNum"+re_guardNum).attr("id","save");
@@ -172,13 +175,6 @@
       });
    });
    
-   
-   /*  $("#commentText").on("keydown",function(e){
-      if(e.keyCode==13){
-         event.preventDefault();
-         $("#commentAddBtn").click();
-      }
-   }); */
     
    // 댓글 삽입
    $("#commentAddBtn").click(function(){
@@ -242,7 +238,7 @@
    }
    
    
-   
+   // 댓글 페이징처리
    function printPage(pageMaker){
        var str = "";
          if (pageMaker.cri.page > 1) {
@@ -276,7 +272,7 @@
       });
    }
    
-   
+   // 작성일 함수
    function getDate(timeValue){
       var dateObj = new Date(timeValue);
       var year = dateObj.getFullYear();

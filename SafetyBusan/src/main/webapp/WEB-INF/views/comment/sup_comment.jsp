@@ -80,14 +80,13 @@
             
       </ul>
    </div>
+   <!-- 페이징처리  -->
    <div class="inner" style="height:100px;margin-top:20px;" align="center">
       <ul id="pagination" >
       
       </ul>
    </div>
 </div>
-
-<!-- 페이징 블럭 -->
 
 
 
@@ -97,17 +96,20 @@
    var commentPage = 1;
    getListPage(commentPage);
 
-   
+// 댓글 수정 클릭시 동적 이벤트 발생
    $("#comments").on("click",".commentLi #commentModBtn",function(){
       // this는 동적 할당 버튼을 가르킴 그 부모는 commentLi
       var commentWrap = $(this).parent();
       var re_supportNum = commentWrap.attr("data-re_supportNum");
       var writer = "${userInfo.name}";
       var text = commentWrap.attr("data-text");
+      
+      // text에 들어가는 태그요소 변경 -> 사용자 화면에서 \n로 바꿈
       text = text.replace(/<br\>/ig, "\n");
       text = text.replace(/<br\/>/ig, "\n");
       text = text.replace(/<(\/)?([a-zA-Z]*)(\s[a-zA-Z]*=[^>]*)?(\s)*(\/)?>/ig, "");
       
+   	  // 해당 선택자에 속한 태그를 textarea로 변경
       $(".con"+re_supportNum).contents().unwrap().wrap( "<textarea class='con"+re_supportNum+"' style='max-height:700px;resize:none;width:100%;'></textarea>" );
       $(".btnNum"+re_supportNum).text("저장");
       $(".btnNum"+re_supportNum).attr("id","save");
@@ -228,7 +230,7 @@
       });   
    }
    
-   
+   // 댓글 페이징 처리
    function printPage(pageMaker){
        var str = "";
          
@@ -266,7 +268,7 @@
    }
    
    
-   
+   // 작성일 함수
    function getDate(timeValue){
       var dateObj = new Date(timeValue);
       var year = dateObj.getFullYear();

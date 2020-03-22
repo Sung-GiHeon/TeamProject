@@ -8,8 +8,9 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>방범 게시판</title>
+<title>방범 모집 게시판</title>
 <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+<!-- bootstrap  -->
  <link href="${pageContext.request.contextPath}/resources/bootstrap/css/bootstrap.min.css" rel="stylesheet" type="text/css" />
  <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet" type="text/css" />
  <link href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css" rel="stylesheet" type="text/css" />
@@ -29,9 +30,13 @@
 
 </head>
 <body class="is-preload">
+
+<!-- Side Menu -->
 <div id="page-wrapper">
-<jsp:include page="../header2.jsp"/>
+<jsp:include page="../Sub_header.jsp"/>
 <article id="main" style="max-height:1500px;">	
+
+<!-- HOME 버튼  -->
 <header>
 	<div style="margin:0 0 0 0;">
 	<h2>Support Board</h2>
@@ -39,13 +44,17 @@
 	<h1><a href="${pageContext.request.contextPath}">HOME</a></h1>
 	</div>
 </header>
+
 <section class="wrapper style5">
+
+<!-- 게시판 제목 및 총 개수 -->
 <div class="inner" style="height:100px;">   
    <div class="col-3-small" style="text-align:center;">
    <h2>방범 활동 모집</h2>
 	<h5>Total-Count ${pageMaker.totalCount}</h5>
    </div>
 </div>
+
 <div class="inner" style="height:100%;">
 <section>
 <div class="inner" style="height:100px;" align="center">
@@ -100,9 +109,11 @@
 				<!-- 목록 출력 -->
 				<c:forEach var="board" items="${list}">
 					<tr>
+						<!-- 글 번호 -->
 						<td>${board.supportNum}</td>
-						<td>
+						
 						<!-- 제목,댓글 개수,이미지첨부 확인 -->
+						<td>
 							<a style="border-bottom:0px;" href="board_readPage${pageMaker.search(cri.page)}&supportNum=${board.supportNum}
 							&commentCnt=${board.commentCnt}" >[${board.region}]${board.title}[${board.commentCnt}]
 							<c:choose>
@@ -111,6 +122,8 @@
 							</c:when>
 							</c:choose></a>
 						</td>
+						
+						<!-- D-day -->
 						<td><h1 style="color:black;" class="content${board.supportNum}"></h1>
 						<script>
 						/* 마감일 표시 로직 */
@@ -140,10 +153,13 @@
 						counter();
 						</script>
 						</td>
+						
+						<!-- 작성일  -->
 						<td>${board.writer}</td>
 						<td>
 							<f:formatDate pattern="yyyy-MM-dd" value="${board.regdate}" />
 						</td>
+						<!-- 활동 정보 -->
 						<c:choose>
 							<c:when test="${board.recm eq 'y'}">
 								<td>
@@ -156,6 +172,7 @@
 								</td>
 							</c:otherwise>
 						</c:choose>
+						<!-- 조회수  -->
 						<td><span class="badge bg-red">${board.viewCnt}</span></td>
 					</tr>
 				</c:forEach>
@@ -171,7 +188,7 @@
 	
 	</div>
 	</section>
-		<!-- 페이징 블럭 -->
+		<!-- 페이징 처리 -->
 		<div class="inner" style="height:100px;" align="center">
 			<c:if test="${pageMaker.prev}">
 				<a href= "board_list${pageMaker.search(pageMaker.startPage-1)}" class="button small">&laquo;</a>
@@ -188,25 +205,38 @@
 </article>	
 <jsp:include page="../footer.jsp"></jsp:include>
 </div>
+
+<!-- Menubar setting -->
 <script	src="${pageContext.request.contextPath}/resources/assets/js/jquery.min.js"></script>
-	<script	src="${pageContext.request.contextPath}/resources/assets/js/jquery.scrollex.min.js"></script>
-	<script	src="${pageContext.request.contextPath}/resources/assets/js/jquery.scrolly.min.js"></script>
-	<script	src="${pageContext.request.contextPath}/resources/assets/js/browser.min.js"></script>
-	<script	src="${pageContext.request.contextPath}/resources/assets/js/breakpoints.min.js"></script>
-	<script	src="${pageContext.request.contextPath}/resources/assets/js/util.js"></script>
-	<script	src="${pageContext.request.contextPath}/resources/assets/js/main.js"></script>
-	<script src="http://code.jquery.com/jquery-latest.min.js"></script>
+<script	src="${pageContext.request.contextPath}/resources/assets/js/jquery.scrollex.min.js"></script>
+<script	src="${pageContext.request.contextPath}/resources/assets/js/jquery.scrolly.min.js"></script>
+<script	src="${pageContext.request.contextPath}/resources/assets/js/browser.min.js"></script>
+<script	src="${pageContext.request.contextPath}/resources/assets/js/breakpoints.min.js"></script>
+<script	src="${pageContext.request.contextPath}/resources/assets/js/util.js"></script>
+<script	src="${pageContext.request.contextPath}/resources/assets/js/main.js"></script>
+<script src="http://code.jquery.com/jquery-latest.min.js"></script>
+	
 <script>
 	var contextPath = '${pageContext.request.contextPath}';
 </script>
 <script src="${pageContext.request.contextPath}/resources/js/upload.js"></script>
 <script>
+		// Enter키를 통한 검색 버튼 실행
+		$("#keyword").on("keydown",function(e){
+		    if(e.keyCode==13){
+		       event.preventDefault();
+		       $("#searchBtn").click();
+		    }
+		 });
+		
+		// 검색어 종류와 검색어를 통한 게시물 요청
 		$("#searchBtn").click(function(){
 			var searchValue = $("select option:selected").val();
 			var keywordValue = $("#keyword").val();
 			location.href="board_list?searchType="+searchValue+"&keyword="+keywordValue;
 		});
 		
+		// 작성 버튼 클릭 시 작성 페이지 호출
 		$("#newBtn").click(function(){
 			location.href="board_register";
 		});

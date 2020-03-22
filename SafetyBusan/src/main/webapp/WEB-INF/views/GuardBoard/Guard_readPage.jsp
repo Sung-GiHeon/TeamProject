@@ -37,7 +37,7 @@ table td:nth-child(n+2){
 </head>
 <body class="is-preload">
 <div id="page-wrapper">
-<jsp:include page="../header2.jsp"/>
+<jsp:include page="../Sub_header.jsp"/>
 <article id="main" style="max-height:2000px;">	
 <header>
 	<h2>Guard ReadPage</h2>

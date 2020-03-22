@@ -7,7 +7,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>방범 게시판</title>
+<title>활동 소식 게시판</title>
 <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
  <link href="${pageContext.request.contextPath}/resources/bootstrap/css/bootstrap.min.css" rel="stylesheet" type="text/css" />
  <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet" type="text/css" />
@@ -43,7 +43,7 @@
 
 <body class="is-preload">
 <div id="page-wrapper">
-<jsp:include page="../header2.jsp"/>
+<jsp:include page="../Sub_header.jsp"/>
 <article id="main">	
 <header>
 	<div style="margin:0 auto;">
@@ -164,6 +164,7 @@
 </script>
 <script src="${pageContext.request.contextPath}/resources/js/upload.js"></script>
 <script>
+	
 	$(function(){
 		$(".ssumnail").each(function(){
 			
@@ -197,6 +198,12 @@
 		});
 	});
 		
+	$("#keyword").on("keydown",function(e){
+	    if(e.keyCode==13){
+	       event.preventDefault();
+	       $("#searchBtn").click();
+	    }
+	 });
 	$("#searchBtn").click(function(){
 		var searchValue = $("select option:selected").val();
 		var keywordValue = $("#keyword").val();

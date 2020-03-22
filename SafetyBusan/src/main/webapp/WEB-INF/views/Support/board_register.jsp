@@ -83,7 +83,7 @@ $(function() {
 
 <body class="is-preload">
 <div id="page-wrapper">
-<jsp:include page="../header2.jsp"/>
+<jsp:include page="../Sub_header.jsp"/>
 <article id="main">	
 <header>
 	<div style="margin:0;">
@@ -96,7 +96,8 @@ $(function() {
 <div class="inner" style="height:100%;">
 	<!-- register 영역 -->	
 	<div id="regi" class="inner" style="height:40%; margin:2em 0 2em 0"align="center">
-		
+	
+	<!-- 작성 목록 -->
 	<h3 >REGISTER BOARD</h3>
 	<form id="registerForm" action="board_register" method="post" >
 		<input type="hidden" name="userNumcopy" value="${userInfo.userNum}" />
@@ -208,9 +209,8 @@ $(function() {
 </script>
 <script src="${pageContext.request.contextPath}/resources/js/upload.js"></script>
 <script>
-
-		// 현재 위치 경로 
 		
+		// 파일 업로드
 		$(".fileUpload").on("change",function(event) {
 			// upload
 			var files = this.files;
@@ -224,7 +224,8 @@ $(function() {
 				}
 				formData.append("file", files[i]);
 			}
-
+		
+		// 업로드시 미리보기 생성
 		$.ajax({
 				type : "POST",
 				data : formData,
@@ -259,6 +260,7 @@ $(function() {
 
 		var arr = [];
 		
+		// 업로드 된 파일 삭제 버튼
 		$(".uploadList").on("click",".delBtn",function(event){
 			event.preventDefault();
 			var fileLink = $(this).attr("href");
@@ -266,6 +268,7 @@ $(function() {
 			$(this).closest("li").remove();
 		});
 
+		// 작성 완료 버튼
 		$("#saveBtn").click(function() {
 				var str  = "";
 				// 빈칸 예외처리

@@ -10,7 +10,6 @@
 <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
 <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/assets/css/main.css" />
 <noscript><link rel="stylesheet" href="${pageContext.request.contextPath}/resources/assets/css/noscript.css" /></noscript>
-
 <script src="http://code.jquery.com/jquery-latest.min.js"></script>
 <style>
 .uploadList {
@@ -32,18 +31,23 @@ table td:nth-child(n+2){
 
 }
 </style>
-
-
 </head>
+
+
 <body class="is-preload">
+
 <div id="page-wrapper">
-<jsp:include page="../header2.jsp"/>
+<!--  -->
+<jsp:include page="../Sub_header.jsp"/>
 <article id="main" style="max-height:1750px;">	
+
+<!-- Home 버튼  -->
 <header>
 	<h2>Support ReadPage</h2>
 	<p>Let's prevent crime together</p>
 	<h1><a href="${pageContext.request.contextPath}">HOME</a></h1>
 </header>
+
 <section class="wrapper style5" style="padding-bottom:0px;">		
 	<!-- request : ${board} -->
 <div class= "inner"  align="center">
@@ -84,6 +88,7 @@ table td:nth-child(n+2){
 					</tr>
 				</table>
 					<script>
+					//D-day 로직
 					function counter() {
 						var dday = new Date("${board.enddate}").getTime(); // 디데이
 						var nowtest = new Date().getTime();
@@ -132,6 +137,7 @@ table td:nth-child(n+2){
 	</table>
 </div>	
 <div  style="height:100px;line-height:100px;">
+	<!-- 해당 작성자일시 수정,삭제 가능 예외 -->
 	<c:if test="${!empty userInfo}">
 		<c:if test="${userInfo.userNum eq board.userNum}">
 			<input type="button" id="modifyBtn" value="수정"/>
@@ -141,7 +147,9 @@ table td:nth-child(n+2){
 		<input type="button" id="listBtn" value="목록"/>
 	</div>	
 </div>
+
 <div class="inner" style="height:100px;" align="center">
+	<!-- 페이지 이동시 페이지 해당 값 전달 -->
 	<form id="readForm" style="margin:0px;">
 		<input type="hidden" name="supportNum" value="${board.supportNum}"/>
 		<input type="hidden" name="page" value="${cri.page}"/>
@@ -150,9 +158,11 @@ table td:nth-child(n+2){
 		<input type="hidden" name="keyword" value="${cri.keyword}"/>
 	</form>
 	
-	<script src="http://code.jquery.com/jquery-latest.min.js"></script>
-	<script>var contextPath = '${pageContext.request.contextPath}';</script>
-	<script src="${pageContext.request.contextPath}/resources/js/upload.js"></script>
+<!-- jquery 라이브러리 script -->
+<script src="http://code.jquery.com/jquery-latest.min.js"></script>
+<script>var contextPath = '${pageContext.request.contextPath}';</script>
+<!-- 첨부파일 존재시 호출하는 함수 script -->
+<script src="${pageContext.request.contextPath}/resources/js/upload.js"></script>
 </div>
 </section>
 </article>	
@@ -163,6 +173,8 @@ table td:nth-child(n+2){
 <jsp:include page="../footer.jsp"></jsp:include>
 </div>
 </div>	
+
+<!-- side menubar script -->
 <script	src="${pageContext.request.contextPath}/resources/assets/js/jquery.min.js"></script>
 <script	src="${pageContext.request.contextPath}/resources/assets/js/jquery.scrollex.min.js"></script>
 <script	src="${pageContext.request.contextPath}/resources/assets/js/jquery.scrolly.min.js"></script>
@@ -170,20 +182,22 @@ table td:nth-child(n+2){
 <script	src="${pageContext.request.contextPath}/resources/assets/js/breakpoints.min.js"></script>
 <script	src="${pageContext.request.contextPath}/resources/assets/js/util.js"></script>
 <script	src="${pageContext.request.contextPath}/resources/assets/js/main.js"></script>
-	<script>
+
+<script>
 		var obj = $("#readForm");
-		
+		// 목록 페이지 이동
 		$("#listBtn").click(function(){
 			obj.attr("action","board_list");
 			obj.submit();
 		});
 		
-		
+		// 수정페이지 이동
 		$("#modifyBtn").click(function(){
 			obj.attr("action","board_modify");
 			obj.submit();
 		});
-
+		
+		// 게시글 삭제 (첨부파일 포함)
 		$("#deleteBtn").click(function(){
 			
 			var isDelete = confirm("첨부된 파일이 모두 삭제 됩니다. 삭제하시겠습니까?");
@@ -207,7 +221,8 @@ table td:nth-child(n+2){
 				alert("삭제 요청이 취소되었습니다.");
 			}
 		});
-
+		
+		// 사용자 임의 마감버튼
 		$("#timerout").click(function(){
 			var supportNum = $('#sup_num').val();
 			var enddate = $('#enddate').val();
@@ -237,6 +252,7 @@ table td:nth-child(n+2){
 		
 		var supportNum = ${board.supportNum};
 		
+		// 첨부파일 존재시 미리보기 구현
 		$.getJSON("getAttach/" + supportNum,function(data){
 			// 첨부파일 목록 - data
 			console.log(data);
@@ -258,7 +274,7 @@ table td:nth-child(n+2){
 			
 		});
 	
-	</script>
+</script>
 </body>
 </html>
 

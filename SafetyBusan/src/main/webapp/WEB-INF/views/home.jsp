@@ -1,15 +1,16 @@
-﻿<%@ page language="java" contentType="text/html; charset=UTF-8"
+<%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <!DOCTYPE HTML>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-<jsp:include page="header.jsp"></jsp:include>
+<jsp:include page="Main_header.jsp"></jsp:include>
 <html>
 	<link rel="stylesheet"
 		href="${pageContext.request.contextPath}/resources/assets/css/main.css" />
 	<noscript>
 		<link rel="stylesheet"
 			href="${pageContext.request.contextPath}/resources/assets/css/noscript.css" />
-	</noscript>
+	</noscript>	
+	<!-- 형진햄 -->
 	<style>
 		ul{
 			list-style:none;
@@ -54,6 +55,8 @@
 		   opacity:0.3;
 		}
 	</style>
+	
+	<!-- 현우 style -->
 	<style type="text/css">
 		#aboutus {
 			height: 100vh;
